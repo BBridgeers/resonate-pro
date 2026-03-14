@@ -1,0 +1,11 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# Project Files
+parse_allegretti.py
+extract_rife.py
+*.pdf
+*.epub
+*.txt
+.git/

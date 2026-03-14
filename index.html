@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Resonate Frequency Companion</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn.pixabay.com/photo/2016/11/18/13/47/atom-1834657_1280.png">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Load custom typography dictated by the Design System -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- PWA Settings -->
+    <meta name="theme-color" content="#1C1C1E">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+
+<body>
+
+    <!-- Background Ambient Glow (Animated by JS later) -->
+    <!-- The original #ambient-glow div is now integrated into main-orb-container -->
+
+    <!-- Main App Container -->
+    <main class="app-container">
+        <!-- Brand Header -->
+        <header>
+            <h1 class="brand-title" id="main-title">RESONATE</h1>
+        </header>
+
+        <!-- Connection Status (Moved to Top) -->
+        <div class="connection-status disconnected" id="connection-indicator">
+            <span class="status-dot"></span>
+            <span id="status-text">Disconnected</span>
+        </div>
+
+        <!-- Central Interactive Element -->
+        <div class="main-orb-container" id="ambient-glow">
+
+            <!-- Slowly Pulsing Purpose Header -->
+            <p class="frequency-purpose disconnected" id="freq-purpose-text">Bio-Resonance Inactive</p>
+
+            <!-- Sacred Geometry Interactive Connection Element -->
+            <div class="sacred-geometry-container" id="connect-btn">
+
+                <svg class="sacred-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- Glow filters -->
+                        <filter id="glow-inactive" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <filter id="glow-active" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="8" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+
+                    <!-- Base Ring Removed to let shapes float freely -->
+
+                    <!-- Layer 1: Vesica Piscis (Start state) -->
+                    <g class="geo-layer" id="layer-vesica">
+                        <circle cx="110" cy="150" r="60" />
+                        <circle cx="190" cy="150" r="60" />
+                    </g>
+
+                    <!-- Layer 2: Fibonacci Spiral (Golden Spiral Approximation) -->
+                    <g class="geo-layer" id="layer-fibonacci">
+                        <path
+                            d="M150,150 a2,2 0 0,0 2,2 a4,4 0 0,0 4,-4 a8,8 0 0,0 -8,-8 a16,16 0 0,0 -16,16 a32,32 0 0,0 32,32 a64,64 0 0,0 64,-64 a128,128 0 0,0 -128,-128"
+                            fill="none" pathLength="100" />
+                        <!-- Mirrored Spiral for balance -->
+                        <path
+                            d="M150,150 a2,2 0 0,1 -2,-2 a4,4 0 0,1 -4,4 a8,8 0 0,1 8,8 a16,16 0 0,1 16,-16 a32,32 0 0,1 -32,-32 a64,64 0 0,1 -64,64 a128,128 0 0,1 128,128"
+                            fill="none" pathLength="100" />
+                    </g>
+
+                    <!-- Layer 3: Seed of Life (7 overlapping circles) -->
+                    <g class="geo-layer" id="layer-seed">
+                        <circle cx="150" cy="150" r="50" />
+                        <circle cx="150" cy="100" r="50" />
+                        <circle cx="193.3" cy="125" r="50" />
+                        <circle cx="193.3" cy="175" r="50" />
+                        <circle cx="150" cy="200" r="50" />
+                        <circle cx="106.7" cy="175" r="50" />
+                        <circle cx="106.7" cy="125" r="50" />
+                    </g>
+
+                    <!-- Layer 4: Flower of Life (Expanding the seed out to 19 circles) -->
+                    <g class="geo-layer" id="layer-flower">
+                        <!-- Inner Seed -->
+                        <circle cx="150" cy="150" r="40" />
+                        <circle cx="150" cy="110" r="40" />
+                        <circle cx="184.6" cy="130" r="40" />
+                        <circle cx="184.6" cy="170" r="40" />
+                        <circle cx="150" cy="190" r="40" />
+                        <circle cx="115.4" cy="170" r="40" />
+                        <circle cx="115.4" cy="130" r="40" />
+                        <!-- Outer Ring -->
+                        <circle cx="150" cy="70" r="40" />
+                        <circle cx="184.6" cy="90" r="40" />
+                        <circle cx="219.2" cy="110" r="40" />
+                        <circle cx="219.2" cy="150" r="40" />
+                        <circle cx="219.2" cy="190" r="40" />
+                        <circle cx="184.6" cy="210" r="40" />
+                        <circle cx="150" cy="230" r="40" />
+                        <circle cx="115.4" cy="210" r="40" />
+                        <circle cx="80.8" cy="190" r="40" />
+                        <circle cx="80.8" cy="150" r="40" />
+                        <circle cx="80.8" cy="110" r="40" />
+                        <circle cx="115.4" cy="90" r="40" />
+                    </g>
+                </svg>
+
+                <div class="geo-ui-overlay">
+                    <span class="instruction-text" id="main-action-text">TAP TO CONNECT</span>
+                    <h2 class="active-frequency hidden" id="current-freq-display">---<span class="unit">Hz</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Frequency Input container -->
+        <div class="custom-freq-container hidden" id="custom-freq-module">
+            <label for="custom-freq-val">Enter Custom Frequency (Hz)</label>
+            <div class="input-group">
+                <input type="number" id="custom-freq-val" placeholder="e.g. 432" min="1" max="10000">
+                <button id="set-custom-freq-btn" class="glass-btn small-btn">SET</button>
+            </div>
+            <button id="open-library-btn" class="glass-btn wide-btn">BROWSE RIFE LIBRARY</button>
+        </div>
+
+        <!-- Connection Status (Previously here, moved up) -->
+
+        <!-- Bottom Frequency Selection Deck -->
+        <div class="freq-deck hidden" id="freq-deck">
+            <h3 class="deck-title">Solfeggio Spectrum</h3>
+            <div class="scrolling-list">
+
+                <!-- The 9 Frequencies -->
+                <div class="freq-card" data-freq="174" data-purpose="Pain & Tension Relief">
+                    <span class="freq-num">174</span><span class="freq-unit">Hz</span>
+                </div>
+                <div class="freq-card" data-freq="285" data-purpose="Tissue Repair">
+                    <span class="freq-num">285</span><span class="freq-unit">Hz</span>
+                </div>
+                <div class="freq-card" data-freq="396" data-purpose="Liberation from Fear">
+                    <span class="freq-num">396</span><span class="freq-unit">Hz</span>
+                </div>
+                <div class="freq-card" data-freq="417" data-purpose="Facilitating Change">
+                    <span class="freq-num">417</span><span class="freq-unit">Hz</span>
+                </div>
+                <div class="freq-card active" data-freq="528" data-purpose="DNA Repair & Vitality">
+                    <span class="freq-num">528</span><span class="freq-unit">Hz</span>
+                </div>
+                <div class="freq-card" data-freq="639" data-purpose="Interpersonal Connection">
+                    <span class="freq-num">639</span><span class="freq-unit">Hz</span>
+                </div>
+                <div class="freq-card" data-freq="741" data-purpose="Awakening Intuition">
+                    <span class="freq-num">741</span><span class="freq-unit">Hz</span>
+                </div>
+                <div class="freq-card" data-freq="852" data-purpose="Spiritual Order">
+                    <span class="freq-num">852</span><span class="freq-unit">Hz</span>
+                </div>
+                <div class="freq-card" data-freq="963" data-purpose="Divine Consciousness">
+                    <span class="freq-num">963</span><span class="freq-unit">Hz</span>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Full Screen Rife Library Modal -->
+    <div id="library-modal" class="modal-overlay hidden">
+        <div class="modal-content library-content">
+            <div class="modal-header">
+                <h2>Rife Frequency Library</h2>
+                <button id="close-library-btn" class="close-btn">&times;</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="library-search" placeholder="Search conditions or frequencies...">
+            </div>
+            <div class="library-list" id="library-list">
+                <!-- Populated by JS -->
+                <p class="loading-text">Loading vast resonant database...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- iOS Instructions Overlay (Hidden by default) -->
+    <div id="ios-instruction-overlay" class="modal-overlay hidden">
+        <div class="overlay-card glass-panel">
+            <h3>iOS Detected</h3>
+            <p>Safari restricts background Bluetooth. To connect to Resonate, add this app to your Homescreen or use
+                the 'Bluefy' web browser.</p>
+            <button id="close-ios-btn" class="glass-btn">I Understand</button>
+        </div>
+    </div>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
