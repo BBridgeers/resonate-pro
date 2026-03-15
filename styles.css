@@ -572,16 +572,241 @@ body.connected .connect-prompt-container {
     display: none !important;
 }
 
+/* --- Full-Screen Modal System --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(244, 241, 237, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    animation: modal-fade-in 0.3s ease;
+}
+
+@keyframes modal-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modal-slide-up 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modal-slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.modal-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+}
+
+/* --- Search Bar --- */
+.search-bar {
+    padding: 12px 28px 16px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    background: var(--bg-dark);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.search-bar input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-bar input:focus {
+    border-color: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+/* --- Library List --- */
+.library-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 28px 24px;
+    scroll-behavior: smooth;
+}
+
+.library-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.library-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.library-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+}
+
+.loading-text, .no-results {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    padding: 40px 0;
+    font-style: italic;
+}
+
+/* --- Rife Entry Cards --- */
+.rife-entry {
+    background: var(--bg-dark);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    transition: all 0.25s ease;
+}
+
+.rife-entry:hover {
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+}
+
+.rife-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+    gap: 12px;
+}
+
+.rife-condition {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.rife-source-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #2E7D32;
+    background: rgba(46, 125, 50, 0.08);
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(46, 125, 50, 0.15);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.rife-notes {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.rife-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding-top: 12px;
+    margin-top: 4px;
+}
+
+.rife-freqs {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
+    opacity: 0.7;
+}
+
+.rife-use-btn {
+    background: var(--text-primary);
+    border: none;
+    color: #FFFFFF;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.rife-use-btn:hover {
+    background: #333;
+    transform: scale(1.03);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* --- iOS Overlay --- */
 #ios-instruction-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(244, 241, 237, 0.8);
-    /* Light mode overlay */
+    background: rgba(244, 241, 237, 0.85);
     backdrop-filter: blur(8px);
-    z-index: 100;
+    z-index: 300;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -589,12 +814,13 @@ body.connected .connect-prompt-container {
 }
 
 .overlay-card {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     padding: 32px;
     text-align: center;
+    max-width: 400px;
 }
 
 .overlay-card h3 {
@@ -610,78 +836,7 @@ body.connected .connect-prompt-container {
     margin-bottom: 24px;
 }
 
-.rife-entry {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 1.25rem;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease;
-}
-
-.rife-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.5rem;
-}
-
-.rife-condition {
-    font-family: 'Jost', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #fff;
-    margin: 0;
-}
-
-.rife-source-badge {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--accent);
-    background: rgba(0, 230, 118, 0.1);
-    padding: 2px 6px;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 230, 118, 0.3);
-}
-
-.rife-notes {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 0.75rem;
-    font-style: italic;
-    line-height: 1.4;
-}
-
-.rife-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 0.75rem;
-}
-
-.rife-freqs {
-    font-size: 0.9rem;
-    color: var(--accent);
-    margin: 0;
-}
-
-.rife-use-btn {
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 4px 12px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.rife-use-btn:hover {
-    background: var(--accent);
-    color: #000;
-}
-
+/* --- Glass Buttons --- */
 .glass-btn {
     background: var(--bg-dark);
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -691,9 +846,65 @@ body.connected .connect-prompt-container {
     font-family: var(--font-body);
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
 }
 
 .glass-btn:hover {
     background: #eadecf;
+    transform: translateY(-1px);
+}
+
+.glass-btn.small-btn {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+}
+
+.glass-btn.wide-btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* --- Custom Frequency Module (Connected State) --- */
+.custom-freq-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 0 20px;
+}
+
+.custom-freq-container label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    background: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.input-group input:focus {
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+.input-group input::placeholder {
+    color: var(--text-muted);
 }
