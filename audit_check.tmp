@@ -1,0 +1,24 @@
+{
+  "condition": "Abscess Nocardia Asteroides",
+  "source": "XTRA",
+  "frequencies": "180,87,17679.38",
+  "organ": "",
+  "sec": "",
+  "notes": "Respiratory various c. Streptothrix. Dropsy"
+}
+{
+  "condition": "Abscesses",
+  "source": "CAFL",
+  "frequencies": "2720,2170,880,787,727,500,200,190,240,2720,2170,1865,1550,880,802,787,727,500,444",
+  "organ": "",
+  "sec": "",
+  "notes": "Types may be involved. Use S taphylococcus various c. Aureus (MRSA) , and see Listeriose."
+}
+{
+  "condition": "Abscesses 2",
+  "source": "XTRA",
+  "frequencies": "180,190,2720,2170,1865,1550,880,802,787,760,727,690",
+  "organ": "",
+  "sec": "",
+  "notes": "As mentioned above various c. Abscesses 3"
+}
