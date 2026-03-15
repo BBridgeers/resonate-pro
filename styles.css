@@ -43,21 +43,6 @@ body {
     padding: 0;
 }
 
-#ambient-glow {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
-    transition: background 1s ease-in-out, opacity 1s ease-in-out;
-}
-
-#ambient-glow.connected {
-    opacity: 1;
-}
-
 .app-container {
     width: 100%;
     max-width: 500px;
