@@ -12,28 +12,23 @@ if ('serviceWorker' in navigator) {
 }
 
 // --- DOM Elements ---
-const mainBtn = document.getElementById('connect-btn');
+const mainBtn = document.getElementById('connect-btn'); // Now the text container
+const connIndicator = document.getElementById('connection-indicator');
+const statusText = document.getElementById('status-text');
 const actionText = document.getElementById('main-action-text');
 const freqDisplay = document.getElementById('current-freq-display');
 const freqPurpose = document.getElementById('freq-purpose-text');
-const connIndicator = document.getElementById('connection-indicator');
-const statusText = document.getElementById('status-text');
-const freqDeck = document.getElementById('freq-deck');
 const ambientGlow = document.getElementById('ambient-glow');
-const freqCards = document.querySelectorAll('.freq-card');
-
-// Custom & Library Elements
+const freqDeck = document.getElementById('freq-deck');
 const customFreqModule = document.getElementById('custom-freq-module');
 const customFreqVal = document.getElementById('custom-freq-val');
 const setCustomFreqBtn = document.getElementById('set-custom-freq-btn');
-
 const openLibraryBtn = document.getElementById('open-library-btn');
 const libraryModal = document.getElementById('library-modal');
 const closeLibraryBtn = document.getElementById('close-library-btn');
 const librarySearch = document.getElementById('library-search');
 const libraryList = document.getElementById('library-list');
-
-// iOS Fallback Elements
+const freqCards = document.querySelectorAll('.freq-card');
 const iosOverlay = document.getElementById('ios-instruction-overlay');
 const closeIosBtn = document.getElementById('close-ios-btn');
 
@@ -103,20 +98,25 @@ mainBtn.addEventListener('click', async () => {
     }
 });
 
-// --- Debug / Simulation Bypass ---
-// Click the Bio-Resonance text to simulate pairing without a physical device
-freqPurpose.addEventListener('click', () => {
-    if (isConnected) return;
-    console.log("Simulating Connection Sequence...");
+// --- Simulation Bypass ---
+// Click the central sacred geometry to simulate pairing
+mainBtn.addEventListener('click', () => {
+    if (isConnected || document.body.classList.contains('connecting')) return;
+    
+    // Trigger visual feedback on the indicator
+    connIndicator.style.background = "rgba(74, 222, 128, 0.2)";
+    statusText.innerText = "Simulating Resonance...";
+    
+    console.log("Dev Bypass: Simulating Connection Sequence...");
     setUIState('scanning');
 
-    // Simulate finding the device and connecting after 3.2 seconds
+    // Simulate finding the device and connecting after 3 seconds
     setTimeout(() => {
         if (document.body.classList.contains('connecting')) {
             console.log("Simulated Device Connected!");
             setUIState('connected');
         }
-    }, 3200);
+    }, 3000);
 });
 
 function onDisconnected() {
@@ -233,7 +233,16 @@ function clearGeometrySequence() {
         window.geoTimeouts.forEach(t => clearInterval(t));
     }
     window.geoTimeouts = [];
-    document.body.classList.remove('seq-fibonacci', 'seq-seed', 'seq-flower');
+    
+    // Clear active sequence classes
+    const layers = ['layer-vesica', 'layer-spiral', 'layer-seed', 'layer-flower'];
+    layers.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.remove('scan-sequence-active');
+            el.style.opacity = ''; // Reset for disconnected state
+        }
+    });
 }
 
 function updateOrbFrequencyDisplay(freq) {
@@ -371,16 +380,33 @@ window.geoTimeouts = [];
 function startGeometrySequence() {
     clearGeometrySequence();
 
-    // Sequence builds upon itself to form the final Flower of Life while searching
-    window.geoTimeouts.push(setTimeout(() => { if (document.body.classList.contains('connecting')) document.body.classList.add('seq-fibonacci'); }, 1000));
-    window.geoTimeouts.push(setTimeout(() => { if (document.body.classList.contains('connecting')) document.body.classList.add('seq-seed'); }, 2000));
-    window.geoTimeouts.push(setTimeout(() => { if (document.body.classList.contains('connecting')) document.body.classList.add('seq-flower'); }, 3000));
+    const vesica = document.getElementById('layer-vesica');
+    const spiral = document.getElementById('layer-spiral');
+    const seed = document.getElementById('layer-seed');
+    const flower = document.getElementById('layer-flower');
 
-    // If it takes a very long time, loop inner geometries
-    window.geoTimeouts.push(setInterval(() => {
+    // Sequence: Fade out Vesica, then cycle others
+    if (vesica) vesica.style.opacity = '0';
+
+    // 1. Fibonacci Spiral (1s delay)
+    window.geoTimeouts.push(setTimeout(() => {
+        if (spiral) spiral.classList.add('scan-sequence-active');
+    }, 1000));
+
+    // 2. Seed of Life (7s delay = 1s + 6s duration)
+    window.geoTimeouts.push(setTimeout(() => {
+        if (seed) seed.classList.add('scan-sequence-active');
+    }, 7000));
+
+    // 3. Flower of Life (13s delay = 7s + 6s duration)
+    window.geoTimeouts.push(setTimeout(() => {
+        if (flower) flower.classList.add('scan-sequence-active');
+    }, 13000));
+
+    // Auto-connect after sequence finishes (Bypass simulation)
+    window.geoTimeouts.push(setTimeout(() => {
         if (document.body.classList.contains('connecting')) {
-            document.body.classList.remove('seq-fibonacci', 'seq-seed', 'seq-flower');
-            startGeometrySequence();
+            setUIState('connected');
         }
-    }, 5000));
+    }, 19000));
 }

@@ -9,3 +9,5 @@ extract_rife.py
 *.epub
 *.txt
 .git/
+
+.vercel
