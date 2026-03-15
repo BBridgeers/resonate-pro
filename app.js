@@ -99,14 +99,19 @@ mainBtn.addEventListener('click', async () => {
 });
 
 // --- Simulation Bypass ---
-// Click the central sacred geometry to simulate pairing
-mainBtn.addEventListener('click', () => {
-    if (isConnected || document.body.classList.contains('connecting')) return;
-    
+// Click the status pill ("Disconnected") to simulate pairing without real BLE
+connIndicator.addEventListener('click', () => {
+    if (isConnected) {
+        // If already connected, clicking the pill disconnects
+        disconnectDevice();
+        return;
+    }
+    if (document.body.classList.contains('connecting')) return;
+
     // Trigger visual feedback on the indicator
     connIndicator.style.background = "rgba(74, 222, 128, 0.2)";
     statusText.innerText = "Simulating Resonance...";
-    
+
     console.log("Dev Bypass: Simulating Connection Sequence...");
     setUIState('scanning');
 
@@ -174,18 +179,19 @@ function setUIState(state) {
         // Update Indicator
         connIndicator.className = 'connection-status disconnected';
         statusText.innerText = 'Disconnected';
-        ambientGlow.className = '';
+        if (ambientGlow) ambientGlow.className = '';
         if (typeof clearGeometrySequence === 'function') clearGeometrySequence();
 
         // Update Orb
         mainBtn.classList.remove('scanning');
-        actionText.innerText = 'TAP TO CONNECT';
-        actionText.classList.remove('hidden');
-        freqDisplay.classList.add('hidden');
+        if (actionText) { actionText.innerText = 'TAP TO CONNECT'; actionText.classList.remove('hidden'); }
+        if (freqDisplay) freqDisplay.classList.add('hidden');
         freqPurpose.innerText = 'Bio-Resonance Inactive';
         freqPurpose.className = 'frequency-purpose disconnected';
 
-        // Hide Deck & Custom Module
+        // Show connect prompt, hide deck & custom
+        const connectPrompt = document.getElementById('connect-btn');
+        if (connectPrompt) connectPrompt.classList.remove('hidden');
         freqDeck.classList.add('hidden');
         customFreqModule.classList.add('hidden');
 
@@ -194,7 +200,7 @@ function setUIState(state) {
         document.body.classList.add('connecting');
 
         statusText.innerText = 'Scanning...';
-        actionText.innerText = 'LOCATING DEVICE';
+        if (actionText) actionText.innerText = 'LOCATING DEVICE';
 
         freqPurpose.className = 'frequency-purpose connecting';
         freqPurpose.textContent = 'Seeking Resonance...';
@@ -211,11 +217,13 @@ function setUIState(state) {
         // Update Indicator
         connIndicator.className = 'connection-status connected';
         statusText.innerText = 'Connected';
-        ambientGlow.className = 'connected';
+        if (ambientGlow) ambientGlow.className = 'connected';
 
-        // Update Orb
-        actionText.classList.add('hidden');
-        freqDisplay.classList.remove('hidden');
+        // Hide connect prompt, show frequency controls
+        if (actionText) actionText.classList.add('hidden');
+        if (freqDisplay) freqDisplay.classList.remove('hidden');
+        const connectPrompt = document.getElementById('connect-btn');
+        if (connectPrompt) connectPrompt.classList.add('hidden');
 
         freqPurpose.className = 'frequency-purpose connected';
         freqPurpose.textContent = 'Bio-Resonance Active';
