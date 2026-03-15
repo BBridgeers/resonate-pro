@@ -195,9 +195,9 @@ body {
 }
 
 .sacred-svg {
-    width: 90vh; /* Large scale to match attachment */
-    height: 90vh;
-    max-width: 90vw;
+    width: 125vh; /* Massive scale to align almond shape perfectly with top/bottom UI */
+    height: 125vh;
+    max-width: none; /* Let it span outside bounds perfectly */
     overflow: visible;
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center center;
